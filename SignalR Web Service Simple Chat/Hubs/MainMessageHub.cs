@@ -4,7 +4,7 @@ using SignalR_Web_Service_Simple_Chat.Models;
 
 namespace SignalR_Web_Service_Simple_Chat.Hubsl;
 
-public class MainMessageHub : Hub<IHub>
+public class MainMessageHub : Hub<IClientMethods>
 {
     public override Task OnConnectedAsync()
     {
