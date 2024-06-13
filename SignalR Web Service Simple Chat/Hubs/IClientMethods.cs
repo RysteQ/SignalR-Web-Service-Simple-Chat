@@ -3,4 +3,5 @@
 public interface IClientMethods
 {
     Task ReceiveMessage(string message);
+    Task Kick();
 }
