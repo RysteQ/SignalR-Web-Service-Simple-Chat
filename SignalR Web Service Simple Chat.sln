@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR Web Service Simple Chat", "SignalR Web Service Simple Chat\SignalR Web Service Simple Chat.csproj", "{61105978-5114-460D-8855-0265282A0027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalR Web Service Simple Chat", "SignalR Web Service Simple Chat\SignalR Web Service Simple Chat.csproj", "{61105978-5114-460D-8855-0265282A0027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR Client", "SignalR Client\SignalR Client.csproj", "{3D14C9CD-3A5C-4BC3-9AB1-9678A829A1F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{61105978-5114-460D-8855-0265282A0027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61105978-5114-460D-8855-0265282A0027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61105978-5114-460D-8855-0265282A0027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D14C9CD-3A5C-4BC3-9AB1-9678A829A1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D14C9CD-3A5C-4BC3-9AB1-9678A829A1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D14C9CD-3A5C-4BC3-9AB1-9678A829A1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D14C9CD-3A5C-4BC3-9AB1-9678A829A1F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
