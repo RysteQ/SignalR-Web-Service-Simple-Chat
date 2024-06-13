@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using SignalR_Web_Service_Simple_Chat.Hubs;
 using SignalR_Web_Service_Simple_Chat.Hubsl;
+using SignalR_Web_Service_Simple_Chat.Models;
 
 namespace SignalR_Web_Service_Simple_Chat.Controllers;
 
@@ -16,9 +17,16 @@ public class SignalRMessageController : ControllerBase
 
     [HttpPost("users/{userId}/message/{message}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<string>(StatusCodes.Status404NotFound)]
     public IActionResult SendMessage(int userId, string message)
     {
+        UserViewModel? user = MainMessageHub.Users.Where(selectedUser => selectedUser.UserId == userId).FirstOrDefault();
+
+        if (user == null)
+            return BadRequest($"User with ID {userId} was not found");
+
+        _hubContext.Clients.Client(user.ConnectionId).ReceiveMessage(message);
+
         return Ok();
     }
 
@@ -26,29 +34,45 @@ public class SignalRMessageController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult BroadcastMessage(string message)
     {
+        _hubContext.Clients.All.ReceiveMessage(message);
+
         return Ok();
     }
 
     [HttpGet("users/")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType<List<UserViewModel>>(StatusCodes.Status200OK)]
     public IActionResult GetUsers()
     {
-        return Ok();
+        return Ok(MainMessageHub.Users);
     }
 
     [HttpPatch("users/{userId}/mute")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<string>(StatusCodes.Status404NotFound)]
     public IActionResult MuteUser(int userId)
     {
+        UserViewModel? user = MainMessageHub.Users.Where(selectedUser => selectedUser.UserId == userId).FirstOrDefault();
+
+        if (user == null)
+            return BadRequest($"User with ID {userId} was not found");
+
+        user.Muted = true;
+
         return Ok();
     }
 
     [HttpPatch("users/{userId}/unmute")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<string>(StatusCodes.Status404NotFound)]
     public IActionResult UnmuteUser(int userId)
     {
+        UserViewModel? user = MainMessageHub.Users.Where(selectedUser => selectedUser.UserId == userId).FirstOrDefault();
+
+        if (user == null)
+            return BadRequest($"User with ID {userId} was not found");
+
+        user.Muted = false;
+
         return Ok();
     }
 
@@ -57,6 +81,13 @@ public class SignalRMessageController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult KickUser(int userId, string reason = "No reason specified")
     {
+        UserViewModel? user = MainMessageHub.Users.Where(selectedUser => selectedUser.UserId == userId).FirstOrDefault();
+
+        if (user == null)
+            return BadRequest($"User with ID {userId} was not found");
+
+        _hubContext.Clients.Client(user.ConnectionId).Kick(reason);
+
         return Ok();
     }
 
