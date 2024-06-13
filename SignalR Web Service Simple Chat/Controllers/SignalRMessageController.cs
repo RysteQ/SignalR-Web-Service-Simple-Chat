@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SignalR_Web_Service_Simple_Chat.Hubs;
+using SignalR_Web_Service_Simple_Chat.Hubsl;
 
 namespace SignalR_Web_Service_Simple_Chat.Controllers;
 
@@ -6,6 +9,11 @@ namespace SignalR_Web_Service_Simple_Chat.Controllers;
 [Route("[controller]/v1")]
 public class SignalRMessageController : ControllerBase
 {
+    public SignalRMessageController(IHubContext<MainMessageHub, IClientMethods> hubContext)
+    {
+        _hubContext = hubContext;
+    }
+
     [HttpPost("users/{userId}/message/{message}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,4 +59,6 @@ public class SignalRMessageController : ControllerBase
     {
         return Ok();
     }
+
+    private IHubContext<MainMessageHub, IClientMethods> _hubContext;
 }
