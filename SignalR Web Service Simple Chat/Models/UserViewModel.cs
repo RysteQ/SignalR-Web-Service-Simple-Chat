@@ -4,4 +4,5 @@ public record UserViewModel
 {
     public required int UserId { get; set; }
     public required string ConnectionId { get; set; }
+    public bool Muted { get; set; }
 }
