@@ -1,3 +1,5 @@
+using SignalR_Web_Service_Simple_Chat.Hubsl;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,5 +24,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<MainMessageHub>("/chat");
 
 app.Run();
