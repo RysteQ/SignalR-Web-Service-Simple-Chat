@@ -27,5 +27,5 @@ public class MainMessageHub : Hub<IClientMethods>
     }
 
     public static List<UserViewModel> Users { get; private set; } = [];
-    private int _currentUserId;
+    private static int _currentUserId;
 }
